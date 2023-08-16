@@ -1,0 +1,74 @@
+html {
+	/* 定义变量 */
+	--bgColor: #f0f2f5;
+
+	/* rgba的四个值分别为：红(R)、绿(G)、蓝(B)、透明度(A) */
+	--whiteShadow: 5px 5px 10px #ccced0;
+	--blackShadow: -5px -5px 10px #ffffff;
+}
+
+.login-page-top {
+	width: 100%;
+	height: 40px;
+	position: relative;
+	text-align: right;
+	line-height: 40px;
+	padding: 0px 16px 0 0;
+}
+.login-page-top-link {
+	color: #1890ff;
+	cursor: pointer;
+	font-size: 12px;
+}
+.login-page-top-link :hover {
+	color: #40a9ff;
+}
+.content {
+	position: relative;
+	padding: 32px 0 24px;
+}
+
+.form-login-container {
+	padding: 32px 0 24px;
+}
+.form-login-top {
+	text-align: center;
+}
+.form-login-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 44px;
+	line-height: 44px;
+}
+.form-login-logo {
+	width: 44px;
+	height: 44px;
+	margin-right: 16px;
+	vertical-align: top;
+}
+.form-login-logo img {
+	width: 100%;
+	z-index: 99;
+}
+
+.form-login-title {
+	top: 2px;
+	color: rgba(0, 0, 0, 0.85);
+	font-weight: 600;
+	font-size: 33px;
+}
+.form-login-desc {
+	margin-top: 12px;
+	margin-bottom: 44px;
+	color: rgba(0, 0, 0, 0.45);
+	font-size: 14px;
+}
+.form-login-main {
+	background-color: var(--bgColor);
+	border-radius: 30px;
+	padding: 32px;
+	width: 428px;
+	margin: 0 auto;
+	box-shadow: var(--blackShadow), var(--whiteShadow);
+}

@@ -1,0 +1,36 @@
+::-webkit-scrollbar {
+	width: 6px;
+	height: 10px;
+	background-color: #f5f5f5;
+}
+::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+	border-radius: 1em;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #a8a8a8;
+}
+
+/* 隐藏高德地图的logo */
+#amap-container > a.amap-logo {
+	display: none !important;
+}
+#amap-container > div.amap-copyright {
+	display: none !important;
+}
+
+.download-link {
+	color: #1890ff;
+	cursor: pointer;
+	margin-right: 16px;
+}
+/* 统计数据默认靠右 */
+.ant-statistic {
+	text-align: right;
+}
+/* 表格内按钮优化 */
+.ant-table .ant-btn.ant-btn-link {
+	padding-left: 0;
+	padding-right: 0;
+}
