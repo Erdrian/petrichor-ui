@@ -14,13 +14,7 @@ interface loginBody extends loginFrom {
 	captchaKey: string
 	loginKey?: string
 }
-type areaFromInterface = {
-	id: string
-	name: string
-	level: number
-	sortNo: number
-	parentId: string
-}
+
 type authFromInterface = {
 	action: string
 	describe: string
@@ -42,17 +36,6 @@ export const getAuth = async () => {
 		}
 	}
 }
-//获取行政区域
-export const getAera = async () => {
-	let { ok, result } = await fetchJson('/sli/adminDivision/getByParentId?parentId=330200')
-	if (ok) {
-		let localArea = {}
-		result.forEach((item: areaFromInterface) => {
-			localArea[item.id] = item.name
-		})
-		localStorage.setItem('localArea', JSON.stringify(localArea))
-	}
-}
 
 const LoginForm = ({
 	size = 'large',
@@ -68,6 +51,7 @@ const LoginForm = ({
 	const [identify, setIdentify] = useState('') //验证码的图片编码
 	const [loginError, setLoginError] = useState('') //登录失败的错误信息
 	const [isLoading, setIsloading] = useState(false) //登录请求状态
+	
 	//---------------------------------------- effect ----------------------------------------
 	// 获取验证码和密码加密码
 	useEffect(() => {
@@ -113,11 +97,9 @@ const LoginForm = ({
 	//获取图形验证码
 	const getIdentify = async () => {
 		const captchaKey = Math.floor(Math.random() * 1000000).toString() //图形验证码的KEY
-		let { ok, result } = await fetchJson('/login/getCaptcha?captchaKey=' + captchaKey)
-		if (ok) {
-			setIdentify(result)
-			setcaptchaKey(captchaKey)
-		}
+		let { result } = await fetchJson('/login/getCaptcha?captchaKey=' + captchaKey)
+		setIdentify(result)
+		setcaptchaKey(captchaKey)
 	}
 
 	return (

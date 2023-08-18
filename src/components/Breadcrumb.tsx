@@ -46,7 +46,7 @@ export default () => {
 		}
 		return items
 	}
-	const itemRender: BreadcrumbProps['itemRender'] = (item, params, items, paths) => {
+	const itemRender: BreadcrumbProps['itemRender'] = (item, _params, items) => {
 		const last = items.indexOf(item) === items.length - 1
 		return last ? <span>{item.title}</span> : <Link to={item.path || '404'}>{item.title}</Link>
 	}

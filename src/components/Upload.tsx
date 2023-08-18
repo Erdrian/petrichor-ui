@@ -1,13 +1,12 @@
 import { useState, forwardRef, useEffect, Ref, useImperativeHandle } from 'react'
 import { UploadOutlined, PlusOutlined } from '@ant-design/icons'
 import { Upload, Button, message, UploadFile, UploadProps } from 'antd'
-import fetchJson from '../utils/fetch'
-import { handleDownload } from '../utils/common'
+import fetchJson, { BASE } from '../utils/fetch'
+import { getToken, handleDownload } from '../utils/common'
 //----------------------------------------  ----------------------------------------
-const BASE = 'http://localhost/8080'
 export const DownloadBase = `${BASE}/api/File/Download`
 export const PublicBase = `${BASE}/api/File/Show`
-export const UploadBase = `${BASE}/upload`
+export const UploadBase = `${BASE}/common/upload`
 //---------------------------------------- type ----------------------------------------
 export interface MyUploadProps<T> extends UploadProps {
 	onFileChange?: (value: T | undefined) => void
@@ -19,17 +18,15 @@ export interface MyUploadProps<T> extends UploadProps {
 export type uploadValue = { fileId: string; fileTitle: string }
 
 type response = {
-	code: string
-	message: string
+	code: number
+	msg: string
 	result: { fileIds: string[] }
-	success: boolean
 }
 //----------------------------------------  ----------------------------------------
 
 //----------------------------------------  ----------------------------------------
 export default forwardRef<any, MyUploadProps<uploadValue[]>>((props, ref) => {
 	//---------------------------------------- props ----------------------------------------
-	const Authorization = `Bearer ${localStorage.getItem('token') || ''}`
 	let { onFileChange, listType = 'text', placeholder, value } = props
 	//---------------------------------------- state ----------------------------------------
 	const [fileList, setfileList] = useState<UploadFile[]>([])
@@ -49,20 +46,20 @@ export default forwardRef<any, MyUploadProps<uploadValue[]>>((props, ref) => {
 					file.status = 'error'
 					return
 				} else {
-					let { result } = response
-					if (!response.success) {
+					// let { result } = response
+					if (response.code !== 200) {
 						file.status = 'error'
-						message.error(`${name}上传失败：${response.message}`)
+						message.error(`${name}上传失败：${response.msg}`)
 					} else {
-						let [fileId] = result.fileIds
-						file.uid = fileId
-						file.url = `${DownloadBase}?fileId=${fileId}&access_token=${localStorage.getItem('token') || ''}`
+						// let [fileId] = result.fileIds
+						// file.uid = fileId
+						// file.url = `${DownloadBase}?fileId=${fileId}&access_token=${localStorage.getItem('token') || ''}`
 						message.success(`${name}上传成功`)
 					}
 					break
 				}
 			case 'error':
-				message.error(`${name}上传失败：${response?.message || ''}`)
+				message.error(`${name}上传失败：${response?.msg || ''}`)
 				break
 			default:
 				break
@@ -144,7 +141,7 @@ export default forwardRef<any, MyUploadProps<uploadValue[]>>((props, ref) => {
 			<Upload
 				{...props}
 				action={UploadBase}
-				headers={{ Authorization }}
+				headers={{ 'X-Access-Token': getToken() }}
 				beforeUpload={beforeUpload}
 				onChange={onChange}
 				fileList={fileList}

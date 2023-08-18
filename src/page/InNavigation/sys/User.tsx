@@ -107,6 +107,7 @@ export default () => {
 		let _data = { ...data }
 		_data.roleIds = _data.roles.map((ele) => ele.id)
 		form.setFieldsValue(_data)
+		
 	}
 	const submit = () => {
 		form.validateFields().then((values) => {

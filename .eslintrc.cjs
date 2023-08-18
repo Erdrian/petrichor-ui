@@ -31,5 +31,6 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'no-case-declarations': 'off',
 		'no-mixed-spaces-and-tabs': 'off',
+		'no-unused-vars': 'warn',
 	},
 }

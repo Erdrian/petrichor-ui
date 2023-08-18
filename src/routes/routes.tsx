@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import Login from '../page/NoNavigation/Login'
 import { Navigate, Route } from 'react-router-dom'
-import NoAuth from '../page/InNavigation/NoAuth'
+import NoAuth from '../page/InNavigation/exception/403'
 import OrgCodeValid from '../page/NoNavigation/OrgCodeValid'
 import User from '../page/InNavigation/sys/User'
 import Role from '../page/InNavigation/sys/Role'
@@ -61,9 +61,9 @@ export const InNavigationRoutes: route[] = [
 
 export const routesRender = (routes: route[]): ReactNode =>
 	routes.map((route) => {
-		let { path, element, authority: authFlag } = route
+		let { path, element, authority } = route
 		const auth = JSON.parse(localStorage.getItem('Authorizes') || '[]')
-		let render = !authFlag || auth.includes(authFlag)
+		let render = !authority || auth.includes(authority)
 		return render ? (
 			<Route key={path} path={path} element={element} />
 		) : (

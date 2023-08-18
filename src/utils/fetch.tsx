@@ -51,17 +51,18 @@ export default async function fetchJson(URL: string, options?: RequestInit) {
 			msg: '数据解析失败',
 			result: null,
 		}
-		if (code === 401) {
-			if (path !== '/login' && token && !(localStorage.getItem('loginModalExist') === 'true')) {
-				createLoginModal()
+		if (code !== 200) {
+			if (code === 401) {
+				if (path !== '/login' && token && !(localStorage.getItem('loginModalExist') === 'true')) {
+					createLoginModal()
+				}
+				return Promise.reject(msg)
 			}
-			return Promise.reject(msg)
-		}
-		if (!ok) {
 			message.error(msg)
 			return Promise.reject(msg)
+		} else {
+			return { ok, result, msg, code }
 		}
-		return { ok, result, msg, code }
 	} catch (e) {
 		message.error('服务器连接失败，请稍后再试')
 		console.log(e)

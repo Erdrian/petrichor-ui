@@ -32,7 +32,7 @@ export default () => {
 		{
 			type: 'upload',
 			inputOptions: {
-				valueFormatter: (file) => ({ file: file.name }),
+				// valueFormatter: (file) => ({ file: file.name }),
 			},
 			itemOptions: {
 				label: '进度',
